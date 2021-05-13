@@ -1,0 +1,27 @@
+﻿@model FLC_Lab3.Models.EditPlus
+
+    <form asp-action="EditPlus" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="student.StudentNoID" />
+        <div class="form-group">
+            <label asp-for="student.FirstName" class="control-label"></label>
+            <input asp-for="student.FirstName" class="form-control" />
+            <span asp-validation-for="student.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="student.LastName" class="control-label"></label>
+            <input asp-for="student.LastName" class="form-control" />
+            <span asp-validation-for="student.LastName" class="text-danger"></span>
+        </div>
+        <br />
+        @for (int i = 0; i < Model.student.EnrolledCourses.Count; i++)
+        {
+            <input asp-for="Checked[i]" type="checkbox" checked />
+            <label asp-for="student.EnrolledCourses[i]">@Model.student.EnrolledCourses[i].CourseID - @Model.student.EnrolledCourses[i].Course.CourseName  </label><br />
+            <input type="hidden" asp-for="student.EnrolledCourses[i].Course.CourseCodeID" />
+            <input type="hidden" asp-for="student.EnrolledCourses[i].Course.CourseName" />
+        }
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FLC_Lab3.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentNoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>Enrolled Coruses</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentNoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @if (item.EnrolledCourses != null)
+                {
+                    @for (int i = 0; i < item.EnrolledCourses.Count; i++)
+                    {
+                        @item.EnrolledCourses[i].CourseID 
+                    }
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StudentNoID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StudentNoID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StudentNoID">Delete</a> |
+                <a asp-controller="Enrollments" asp-action="Edit" asp-route-id="@item.StudentNoID">Edit Enrollments</a> 
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
